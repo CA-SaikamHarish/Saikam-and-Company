@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saikam and Company Chartered Accountants</title>
+    <!-- Tailwind CSS CDN for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Light blue-gray background */
+            overflow-x: hidden; /* Prevent horizontal scroll when menu is open */
+        }
+        /* Custom styles for professional look, ensuring rounded corners and shadows */
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+        }
+        .btn-primary {
+            background-color: #1e3a8a; /* Dark blue for primary actions */
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem; /* rounded-md */
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #172b6b; /* Slightly darker on hover */
+        }
+        /* Ensuring all elements are fluid and responsive */
+        .container {
+            width: 100%;
+            max-width: 1200px; /* Max width for content */
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        /* Style for the service items to ensure they are clickable and clearly defined */
+        .service-item {
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        /* Styles for the off-canvas menu */
+        .off-canvas-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 250px; /* Width of the side menu */
+            background-color: #ffffff;
+            box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
+            transform: translateX(100%); /* Initially off-screen to the right */
+            transition: transform 0.3s ease-in-out;
+            z-index: 50; /* Above other content */
+        }
+        .off-canvas-menu.open {
+            transform: translateX(0); /* Slide in */
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            z-index: 40; /* Below the menu, above content */
+            display: none; /* Hidden by default */
+        }
+        /* Hero section with background image - Reverted to no image, only gradient */
+        #home {
+            background-image: linear-gradient(to right, #1e3a8a, #3b82f6); /* Deep blue to brighter blue */
+            position: relative;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-sm py-4">
+        <div class="container flex justify-between items-center">
+            <!-- CA India Logo -->
+            <div class="flex items-center">
+                <img src="/files/New-logo-of-CA.png" alt="CA India Logo" class="h-10 mr-3 rounded-md">
+                <!-- Firm Name - Formatted for two lines with explicit nowrap for each line -->
+                <h1 class="text-2xl font-bold text-gray-900 leading-tight flex flex-col">
+                    <span class="whitespace-nowrap">Saikam and Company</span>
+                    <span class="whitespace-nowrap">Chartered Accountants</span>
+                </h1>
+            </div>
+            <!-- Hamburger Menu Icon for All Screens -->
+            <button id="hamburger-button" class="p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Off-canvas Menu Overlay -->
+    <div id="menu-overlay" class="overlay"></div>
+
+    <!-- Off-canvas Menu -->
+    <div id="off-canvas-menu" class="off-canvas-menu">
+        <div class="flex justify-end p-4">
+            <button id="close-menu-button" class="text-gray-700 hover:text-gray-900 text-3xl font-bold">&times;</button>
+        </div>
+        <nav class="p-4">
+            <ul class="flex flex-col space-y-4">
+                <li><a href="#home" class="block text-gray-800 hover:text-blue-800 font-medium text-lg py-2" onclick="closeMenu()">Home</a></li>
+                <li><a href="#about" class="block text-gray-800 hover:text-blue-800 font-medium text-lg py-2" onclick="closeMenu()">About Us</a></li>
+                <li><a href="#services" class="block text-gray-800 hover:text-blue-800 font-medium text-lg py-2" onclick="closeMenu()">Services</a></li>
+                <li><a href="#knowledge" class="block text-gray-800 hover:text-blue-800 font-medium text-lg py-2" onclick="closeMenu()">Knowledge Hub</a></li>
+                <li><a href="#contact" class="block text-gray-800 hover:text-blue-800 font-medium text-lg py-2" onclick="closeMenu()">Contact Us</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="bg-gradient-to-r from-blue-700 to-blue-900 text-white py-20 text-center">
+        <div class="container">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
+                Your Trusted Partner for Financial Excellence
+            </h2>
+            <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
+                Providing comprehensive and ethical financial solutions across India.
+            </p>
+            <a href="#contact" class="btn-primary inline-block text-lg font-semibold">
+                Connect With Us
+            </a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container">
+            <h3 class="text-3xl font-bold text-center mb-10 text-gray-900">About Our Practice</h3>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        Established in 2025, Saikam and Company Chartered Accountants, is a newly formed practice committed to delivering high-quality and ethical financial services. Though recently established, our foundation is built on robust experience and a client-centric approach, ensuring tailored solutions that meet the unique needs of each individual and business we serve.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        Our practice is built on the pillars of integrity, professionalism, and continuous learning. We strive to be a reliable partner in your financial journey, offering expert guidance and support to help you navigate the complexities of taxation, compliance, and financial management in India.
+                    </p>
+                </div>
+                <div class="card p-6">
+                    <h4 class="text-lg font-semibold mb-4 text-gray-900 whitespace-nowrap">About Our Chartered Accountant</h4>
+                    <div class="flex items-center space-x-4 mb-4">
+                        <!-- Passport size photo permitted -->
+                        <img src="/files/IMG-20240816-WA0044~3.jpg" alt="Passport size photo of CA. Saikam Harish" class="rounded-md w-24 h-24 object-cover">
+                        <div>
+                            <p class="font-semibold text-lg text-blue-800">CA. Saikam Harish</p>
+                            <p class="text-gray-600 text-sm">Membership No. 269217</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed text-sm">
+                        CA. Saikam Harish qualified as a Chartered Accountant in November 2022. With prior experience at Deloitte, he brings a strong foundation in audit, taxation, and financial advisory, coupled with a commitment to providing meticulous and insightful financial solutions. He established Saikam and Company in 2025 with a vision to offer dedicated and ethical professional services to meet the evolving financial needs of businesses and individuals in India.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-gray-50">
+        <div class="container">
+            <h3 class="text-3xl font-bold text-center mb-10 text-gray-900">Our Professional Services</h3>
+            <p class="text-center text-gray-700 mb-8 max-w-2xl mx-auto">
+                We offer a comprehensive range of services designed to assist you with your financial and compliance needs. Click on a service category to learn more about how we can support you.
+            </p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Category 1 - Taxation Services -->
+                <div class="card p-6 service-item" onclick="toggleServiceDetails('service1')">
+                    <h4 class="text-xl font-semibold mb-3 text-blue-800">Taxation Services</h4>
+                    <p class="text-gray-600 mb-4">Expert guidance on direct and indirect taxation.</p>
+                    <div id="service1-details" class="hidden text-sm text-gray-700">
+                        <p>Our taxation services include Income Tax Planning & Compliance, Goods and Services Tax (GST) Advisory & Returns, Tax Deducted at Source (TDS) Compliance, International Taxation, and Representation before Tax Authorities.</p>
+                    </div>
+                    <span class="text-blue-600 text-sm font-medium">Click to view details</span>
+                </div>
+
+                <!-- Service Category 2 - Audit & Assurance -->
+                <div class="card p-6 service-item" onclick="toggleServiceDetails('service2')">
+                    <h4 class="text-xl font-semibold mb-3 text-blue-800">Audit & Assurance</h4>
+                    <p class="text-gray-600 mb-4">Ensuring financial transparency and compliance.</p>
+                    <div id="service2-details" class="hidden text-sm text-gray-700">
+                        <p>We provide Statutory Audit, Internal Audit, Tax Audit, Concurrent Audit, and Certification Services, adhering to all applicable accounting standards and regulations.</p>
+                    </div>
+                    <span class="text-blue-600 text-sm font-medium">Click to view details</span>
+                </div>
+
+                <!-- Service Category 3 - Financial Reporting (formerly Advisory & Consulting) -->
+                <div class="card p-6 service-item" onclick="toggleServiceDetails('service3')">
+                    <h4 class="text-xl font-semibold mb-3 text-blue-800">Financial Reporting</h4>
+                    <p class="text-gray-600 mb-4">Accounting & Bookkeeping</p>
+                    <div id="service3-details" class="hidden text-sm text-gray-700">
+                        <p>We offer comprehensive accounting services including bookkeeping, preparation of financial statements, payroll processing, and reconciliation services.</p>
+                    </div>
+                    <span class="text-blue-600 text-sm font-medium">Click to view details</span>
+                </div>
+
+                <!-- Service Category 4 - Company Law Compliance (formerly Accounting & Bookkeeping) -->
+                <div class="card p-6 service-item" onclick="toggleServiceDetails('service4')">
+                    <h4 class="text-xl font-semibold mb-3 text-blue-800">Company Law Compliance</h4>
+                    <p class="text-gray-600 mb-4">Ensuring adherence to corporate legal frameworks and regulations.</p>
+                    <div id="service4-details" class="hidden text-sm text-gray-700">
+                        <p>Our services include company incorporation, annual ROC filings, maintenance of statutory records, and advice on various corporate law matters.</p>
+                    </div>
+                    <span class="text-blue-600 text-sm font-medium">Click to view details</span>
+                </div>
+
+                <!-- Service Category 5 - Other Regulatory & Compliance Services (formerly Company Law & ROC Compliance) -->
+                <div class="card p-6 service-item" onclick="toggleServiceDetails('service5')">
+                    <h4 class="text-xl font-semibold mb-3 text-blue-800">Other Regulatory & Compliance Services</h4>
+                    <p class="text-gray-600 mb-4">Expert guidance on various financial and compliance laws.</p>
+                    <div id="service5-details" class="hidden text-sm text-gray-700">
+                        <p>We provide advisory and compliance services related to Foreign Exchange Management Act (FEMA), Real Estate (Regulation and Development) Act (RERA), Prevention of Money Laundering Act (PMLA), Insolvency and Bankruptcy Code, and other relevant financial laws.</p>
+                    </div>
+                    <span class="text-blue-600 text-sm font-medium">Click to view details</span>
+                </div>
+
+                <!-- Service Category 6 - Management Consultancy and Other Services (formerly GST Compliance) -->
+                <div class="card p-6 service-item" onclick="toggleServiceDetails('service6')">
+                    <h4 class="text-xl font-semibold mb-3 text-blue-800">Management Consultancy and Other Services</h4>
+                    <p class="text-gray-600 mb-4">Strategic advisory and support for business efficiency and growth.</p>
+                    <div id="service6-details" class="hidden text-sm text-gray-700">
+                        <p>Our management consultancy services include: Financial Management Planning, Capital Structure Planning, Working Capital Management, Project Reports, Feasibility Studies, Management Accounting Systems, Cost Control, Business Policy, Corporate Planning, Organization Development, System Analysis and Design, IT-Related Services, Quality Audit, Environment Audit, Energy Audit, Personnel Recruitment, Executive Incentive Plans, Advice on Mergers and Amalgamations, Acting as Advisor or Consultant to an Issue, Investment Counseling, and Arbitration and Insolvency Work.</p>
+                    </div>
+                    <span class="text-blue-600 text-sm font-medium">Click to view details</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Knowledge Hub Section -->
+    <section id="knowledge" class="py-16 bg-white">
+        <div class="container">
+            <h3 class="text-3xl font-bold text-center mb-10 text-gray-900">Knowledge Hub & Professional Insights</h3>
+            <p class="text-center text-gray-700 mb-8 max-w-2xl mx-auto">
+                Stay updated with the latest professional insights, tax updates, and regulatory changes through our articles and resources.
+            </p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Article 1: India Code -->
+                <div class="card p-6">
+                    <h4 class="text-xl font-semibold mb-3 text-blue-800">India Code: All Acts Digitally</h4>
+                    <p class="text-gray-600 mb-4 text-sm">Access and stay updated with all central and state acts of India digitally.</p>
+                    <a href="https://www.indiacode.nic.in/" target="_blank" class="text-blue-600 hover:underline text-sm font-medium">Visit India Code</a>
+                </div>
+                <!-- Article 2: ICAI Resources Hub -->
+                <div class="card p-6">
+                    <h4 class="text-xl font-semibold mb-3 text-blue-800">Updates on CA Profession</h4>
+                    <p class="text-gray-600 mb-4 text-sm">Explore the official ICAI resources for the latest updates and professional guidance.</p>
+                    <a href="https://www.icai.org/resources.shtml" target="_blank" class="text-blue-600 hover:underline text-sm font-medium">Visit ICAI Resources</a>
+                </div>
+                <!-- Article 3: Income Tax Portal -->
+                <div class="card p-6">
+                    <h4 class="text-xl font-semibold mb-3 text-blue-800">Income Tax Portal</h4>
+                    <p class="text-gray-600 mb-4 text-sm">Official portal for income tax filings, information, and services in India.</p>
+                    <a href="https://www.incometax.gov.in/" target="_blank" class="text-blue-600 hover:underline text-sm font-medium">Visit Income Tax Portal</a>
+                </div>
+                <!-- Article 4: GST Portal -->
+                <div class="card p-6">
+                    <h4 class="text-xl font-semibold mb-3 text-blue-800">GST Portal</h4>
+                    <p class="text-gray-600 mb-4 text-sm">Your gateway to Goods and Services Tax services, returns, and information.</p>
+                    <a href="https://www.gst.gov.in/" target="_blank" class="text-blue-600 hover:underline text-sm font-medium">Visit GST Portal</a>
+                </div>
+                <!-- Article 5: MCA Portal -->
+                <div class="card p-6">
+                    <h4 class="text-xl font-semibold mb-3 text-blue-800">MCA Portal</h4>
+                    <p class="text-gray-600 mb-4 text-sm">Ministry of Corporate Affairs portal for company information and regulatory filings.</p>
+                    <a href="https://www.mca.gov.in/" target="_blank" class="text-blue-600 hover:underline text-sm font-medium">Visit MCA Portal</a>
+                </div>
+            </div>
+            <!-- Removed the "View All Articles" button -->
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact" class="py-16 bg-gray-50">
+        <div class="container">
+            <h3 class="text-3xl font-bold text-center mb-10 text-gray-900">Contact Us</h3>
+            <div class="flex justify-center"> <!-- Centering the contact card -->
+                <div class="card p-6 w-full md:w-3/4 lg:w-2/3"> <!-- Adjusted width for larger screens -->
+                    <p class="text-gray-700 mb-4">
+                        We are here to assist you with your financial and compliance needs. Please feel free to reach out to us.
+                    </p>
+                    <p class="text-gray-700 mb-2">
+                        <strong>Address:</strong> Flat No. 101, 2nd Floor, Sri Venkateshwara Residency, Road No. 12, Sri Vani Nagar, Ganesh Nagar, Ameenpur, Miyapur, Hyderabad - 502032, Rangareddy, Telangana, India.
+                    </p>
+                    <p class="text-700 mb-2">
+                        <strong>Call / WhatsApp:</strong> <a href="tel:+919666490934" class="text-blue-700 hover:underline">+91 9666490934</a>
+                    </p>
+                    <p class="text-gray-700 mb-4">
+                        <strong>Email ID:</strong> <a href="mailto:harishsaikam20@gmail.com" class="text-blue-700 hover:underline">harishsaikam20@gmail.com</a>
+                    </p>
+                    <!-- Google Maps Embed (Optional) -->
+                    <div class="h-64 bg-gray-200 rounded-md overflow-hidden mt-6">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.602705668582!2d78.342694!3d17.526694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTfCsDMxJzM2LjEiTiA3OMKwMjAnMzMuN0U!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                            width="100%"
+                            height="100%"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container text-center text-sm">
+            <p>&copy; 2025 Saikam and Company Chartered Accountants. All rights reserved.</p>
+            <p class="mt-2">
+                <a href="#disclaimer" class="text-gray-400 hover:text-white mr-4">Disclaimer</a>
+                <a href="#privacy" class="text-gray-400 hover:text-white">Privacy Policy</a>
+            </p>
+            <p class="mt-4 text-gray-500">
+                This website is designed in compliance with the guidelines issued by the Institute of Chartered Accountants of India (ICAI).
+                The information provided herein is for general informational purposes only and does not constitute professional advice.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Disclaimer Section (hidden by default, can be shown via link) -->
+    <section id="disclaimer" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-white p-8 rounded-lg shadow-xl max-w-2xl w-full relative">
+            <h4 class="text-2xl font-bold mb-4 text-gray-900">Disclaimer</h4>
+            <p class="text-gray-700 mb-4">
+                The information contained in this website is for general information purposes only. The information is provided by Saikam and Company Chartered Accountants and while we endeavour to keep the information up to date and correct, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose. Any reliance you place on such information is therefore strictly at your own risk.
+            </p>
+            <p class="text-gray-700 mb-4">
+                In no event will we be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever arising from loss of data or profits arising out of, or in connection with, the use of this website.
+            </p>
+            <p class="text-gray-700">
+                Through this website you are able to link to other websites which are not under the control of Saikam and Company Chartered Accountants. We have no control over the nature, content and availability of those sites. The inclusion of any links does not necessarily imply a recommendation or endorse the views expressed within them.
+            </p>
+            <button onclick="document.getElementById('disclaimer').classList.add('hidden')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl font-bold">&times;</button>
+        </div>
+    </section>
+
+    <!-- Privacy Policy Section (hidden by default, can be shown via link) -->
+    <section id="privacy" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-white p-8 rounded-lg shadow-xl max-w-2xl w-full relative">
+            <h4 class="text-2xl font-bold mb-4 text-gray-900">Privacy Policy</h4>
+            <p class="text-gray-700 mb-4">
+                This privacy policy sets out how Saikam and Company Chartered Accountants uses and protects any information that you give Saikam and Company Chartered Accountants when you use this website. Saikam and Company Chartered Accountants is committed to ensuring that your privacy is protected. Should we ask you to provide certain information by which you can be identified when using this website, then you can be assured that it will only be used in accordance with this privacy statement.
+            </p>
+            <p class="text-gray-700 mb-4">
+                We may collect the following information: name and contact information including email address, demographic information such as postcode, preferences and interests, other information relevant to client surveys and/or offers.
+            </p>
+            <p class="text-gray-700">
+                We are committed to ensuring that your information is secure. In order to prevent unauthorised access or disclosure, we have put in place suitable physical, electronic and managerial procedures to safeguard and secure the information we collect online.
+            </p>
+            <button onclick="document.getElementById('privacy').classList.add('hidden')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl font-bold">&times;</button>
+        </div>
+    </section>
+
+    <script>
+        // JavaScript for "pull" model for partner details and service details
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to toggle visibility of details
+            function toggleDetails(id) {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.classList.toggle('hidden');
+                }
+            }
+
+            // Function for service details (called directly from onclick)
+            window.toggleServiceDetails = function(id) {
+                toggleDetails(id + '-details');
+            };
+
+            // Event listeners for footer links to show disclaimer/privacy policy
+            document.querySelector('a[href="#disclaimer"]').addEventListener('click', function(event) {
+                event.preventDefault();
+                document.getElementById('disclaimer').classList.remove('hidden');
+            });
+
+            document.querySelector('a[href="#privacy"]').addEventListener('click', function(event) {
+                event.preventDefault();
+                document.getElementById('privacy').classList.remove('hidden');
+            });
+
+            // Hamburger menu functionality
+            const hamburgerButton = document.getElementById('hamburger-button');
+            const closeMenuButton = document.getElementById('close-menu-button');
+            const offCanvasMenu = document.getElementById('off-canvas-menu');
+            const menuOverlay = document.getElementById('menu-overlay');
+
+            function openMenu() {
+                offCanvasMenu.classList.add('open');
+                menuOverlay.style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling body when menu is open
+            }
+
+            window.closeMenu = function() { // Made global for onclick in menu items
+                offCanvasMenu.classList.remove('open');
+                menuOverlay.style.display = 'none';
+                document.body.style.overflow = ''; // Restore scrolling
+            };
+
+            hamburgerButton.addEventListener('click', openMenu);
+            closeMenuButton.addEventListener('click', closeMenu);
+            menuOverlay.addEventListener('click', closeMenu); // Close menu when clicking overlay
+
+            // The contact form submission simulation JavaScript is removed as the form is removed.
+        });
+    </script>
+</body>
+</html>
